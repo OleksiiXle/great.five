@@ -12,6 +12,8 @@ use yii\di\Instance;
 
 class AccessControl extends \yii\filters\AccessControl
 {
+    public $ruleConfig = ['class' => AccessRule::class];
+
     /**
      * Denies the access of the user.
      * The default implementation will redirect the user to the login page if he is a guest;

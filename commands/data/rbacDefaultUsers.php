@@ -1,27 +1,27 @@
 <?php
 return [
     [
-        'username' => 'defaultAdmin',
-        'email' => 'admin@email.com',
+        'username' => 'adminBoss',
+        'email' => 'admin1@email.com',
         'password' => '12345',
         'retypePassword' => '12345',
         'first_name' => 'Главный',
         'middle_name' => 'Системный',
         'last_name' => 'Администратор',
         'userRoles' => [
-            'admin'
+            'adminBoss'
         ],
     ],
     [
-        'username' => 'defaultUser',
-        'email' => 'user@email.com',
+        'username' => 'adminStaff',
+        'email' => 'admin2@email.com',
         'password' => '12345',
         'retypePassword' => '12345',
-        'first_name' => 'Дефолтный',
-        'middle_name' => 'Первый',
-        'last_name' => 'Пользователь',
+        'first_name' => 'Администратор',
+        'middle_name' => 'Человеческих',
+        'last_name' => 'Ресурсов',
         'userRoles' => [
-            'user'
+            'adminStaff'
         ],
     ],
 ];

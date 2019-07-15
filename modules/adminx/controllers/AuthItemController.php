@@ -14,6 +14,11 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\rbac\Item;
 
+/**
+ * Class AuthItemController
+ * Управление разрешениями и ролями
+ * @package app\modules\adminx\controllers
+ */
 class AuthItemController extends MainController
 {
     /**
@@ -30,28 +35,26 @@ class AuthItemController extends MainController
                     'actions'    => [
                         'index',
                     ],
-                    'roles'      => ['adminView', 'adminCRUD', ],
+                    'roles'      => ['adminBoss' ],
                 ],
                 [
                     'allow'      => true,
                     'actions'    => [
                         'create', 'update',  'delete', 'assign', 'revoke'
                     ],
-                    'roles'      => ['adminCRUD', ],
+                    'roles'      => ['adminBoss', ],
                 ],
             ],
-                /*
-            'denyCallback' => function ($rule, $action) {
-                \yii::$app->getSession()->addFlash("warning",\Yii::t('app', "Действие запрещено"));
-                return $this->redirect(\Yii::$app->request->referrer);
-
-            }
-            */
         ];
         return $behaviors;
     }
 
-    public function actionIndex(){
+    /**
+     * @return string
+     */
+    public function actionIndex()
+    {
+        $q=1;
         $dataProvider = new ActiveDataProviderConserve([
             'filterModelClass' => AuthItemFilter::class,
             'conserveName' => 'authItemAdminGrid',
@@ -62,7 +65,8 @@ class AuthItemController extends MainController
         ]);
     }
 
-    public function actionCreate($type){
+    public function actionCreate($type)
+    {
         $model = new AuthItemX();
         $model->type = $type;
         if ($model->load(\Yii::$app->getRequest()->post())) {
@@ -76,7 +80,8 @@ class AuthItemController extends MainController
             ]);
     }
 
-    public function actionUpdate($name ){
+    public function actionUpdate($name )
+    {
         $model =  AuthItemX::find()
             ->where(['name' => $name])
             ->one();
@@ -105,7 +110,8 @@ class AuthItemController extends MainController
         }
     }
 
-    public function actionDelete(){
+    public function actionDelete()
+    {
 
     }
 
@@ -116,7 +122,8 @@ class AuthItemController extends MainController
      * @param array $items
      * @return string
      */
-    public function actionAssign(){
+    public function actionAssign()
+    {
         try {
             $name    = \Yii::$app->getRequest()->post('name');
             $type    = \Yii::$app->getRequest()->post('type');
@@ -148,7 +155,8 @@ class AuthItemController extends MainController
      * @param array $items
      * @return string
      */
-    public function actionRevoke() {
+    public function actionRevoke()
+    {
         try {
             $name    = \Yii::$app->getRequest()->post('name');
             $type    = \Yii::$app->getRequest()->post('type');

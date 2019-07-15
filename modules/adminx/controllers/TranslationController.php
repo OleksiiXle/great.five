@@ -8,6 +8,11 @@ use app\modules\adminx\components\AccessControl;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 
+/**
+ * Class TranslationController
+ * Управление переводами и смена языка
+ * @package app\modules\adminx\controllers
+ */
 class TranslationController extends MainController
 {
 
@@ -22,7 +27,7 @@ class TranslationController extends MainController
                     'actions'    => [
                          'index', 'create', 'update', 'delete'
                     ],
-                    'roles'      => ['adminCRUD' ],
+                    'roles'      => ['adminSystemCRUD' ],
                 ],
                 [
                     'allow'      => true,
@@ -32,13 +37,6 @@ class TranslationController extends MainController
                     'roles'      => ['@' , '?' ],
                 ],
             ],
-                /*
-            'denyCallback' => function ($rule, $action) {
-                \yii::$app->getSession()->addFlash("warning",\Yii::t('app', "Действие запрещено"));
-                return $this->redirect(\Yii::$app->request->referrer);
-
-        }
-        */
         ];
 
         $behaviors['verbs'] = [

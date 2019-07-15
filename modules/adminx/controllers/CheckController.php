@@ -23,9 +23,17 @@ use yii\base\InvalidParamException;
 use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 
+/**
+ * Class CheckController
+ * Прпосмотр активности пользователей (зарегистрированных и гостей)
+ * @package app\modules\adminx\controllers
+ */
 class CheckController extends MainController
 {
 
+    /**
+     * @return array
+     */
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -37,7 +45,7 @@ class CheckController extends MainController
                     'actions'    => [
                         'guest-control', 'user-control',
                     ],
-                    'roles'      => ['adminCRUD' ],
+                    'roles'      => ['adminStaff' ],
                 ],
             ],
                 /*
@@ -51,6 +59,9 @@ class CheckController extends MainController
         return $behaviors;
     }
 
+    /**
+     * @return string
+     */
     public function actionUserControl()
     {
         $dataProvider = new ActiveDataProviderConserve([
@@ -64,6 +75,9 @@ class CheckController extends MainController
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function actionGuestControl()
     {
         $dataProvider = new ActiveDataProviderConserve([

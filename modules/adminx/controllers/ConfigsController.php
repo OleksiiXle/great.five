@@ -8,6 +8,11 @@ use app\modules\adminx\models\Configs;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 
+/**
+ * Class ConfigsController
+ * Изменение системных настроек
+ * @package app\modules\adminx\controllers
+ */
 class ConfigsController extends MainController
 {
 
@@ -22,16 +27,9 @@ class ConfigsController extends MainController
                     'actions'    => [
                          'index', 'create', 'update', 'delete', 'update-configs'
                     ],
-                    'roles'      => ['adminCRUD' ],
+                    'roles'      => ['adminSystemCRUD' ],
                 ],
             ],
-                /*
-            'denyCallback' => function ($rule, $action) {
-                \yii::$app->getSession()->addFlash("warning",\Yii::t('app', "Действие запрещено"));
-                return $this->redirect(\Yii::$app->request->referrer);
-
-        }
-        */
         ];
 
         $behaviors['verbs'] = [

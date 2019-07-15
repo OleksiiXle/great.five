@@ -7,9 +7,13 @@ use app\controllers\MainController;
 use app\modules\adminx\models\Assignment;
 use yii\filters\VerbFilter;
 
+/**
+ * Class AssignmentController
+ * Управление разрешениями пользователя
+ * @package app\modules\adminx\controllers
+ */
 class AssignmentController extends MainController
 {
-
     /**
      * @inheritdoc
      */
@@ -24,16 +28,9 @@ class AssignmentController extends MainController
                     'actions'    => [
                         'assign', 'revoke'
                     ],
-                    'roles'      => ['adminCRUD', ],
+                    'roles'      => ['adminStaff', ],
                 ],
             ],
-            /*
-            'denyCallback' => function ($rule, $action) {
-                \yii::$app->getSession()->addFlash("warning",\Yii::t('app', "Действие запрещено"));
-                return $this->redirect(\Yii::$app->request->referrer);
-
-            }
-            */
         ];
 
         $behaviors['verbs'] = [
@@ -46,7 +43,6 @@ class AssignmentController extends MainController
         ];
         return $behaviors;
     }
-
 
     /**
      * +++ Назначение пользователю ролей, разрешений, роутов

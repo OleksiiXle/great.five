@@ -8,6 +8,11 @@ use app\modules\adminx\models\MenuX;
 use app\modules\adminx\models\Route;
 use yii\web\Controller;
 
+/**
+ * Class MenuxController
+ * Редактирование меню
+ * @package app\modules\adminx\controllers
+ */
 class MenuxController extends MainController
 {
     /**
@@ -24,16 +29,9 @@ class MenuxController extends MainController
                     'actions'    => [
                         'menu', 'get-menux'
                     ],
-                    'roles'      => ['adminCRUD', ],
+                    'roles'      => ['adminSystemCRUD', ],
                 ],
             ],
-                /*
-            'denyCallback' => function ($rule, $action) {
-                \yii::$app->getSession()->addFlash("warning",\Yii::t('app', "Действие запрещено"));
-                return $this->redirect(\Yii::$app->request->referrer);
-
-            }
-            */
         ];
         return $behaviors;
     }

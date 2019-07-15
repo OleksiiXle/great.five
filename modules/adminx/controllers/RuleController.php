@@ -12,6 +12,11 @@ use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 //use app\modules\adminx\components\Helper;
 
+/**
+ * Class RuleController
+ * Редактор правил
+ * @package app\modules\adminx\controllers
+ */
 class RuleController extends MainController
 {
 
@@ -29,23 +34,16 @@ class RuleController extends MainController
                     'actions'    => [
                         'index',
                     ],
-                    'roles'      => ['adminView', 'adminCRUD', ],
+                    'roles'      => ['adminSystemCRUD', ],
                 ],
                 [
                     'allow'      => true,
                     'actions'    => [
                         'create', 'update', 'delete'
                     ],
-                    'roles'      => ['adminCRUD', ],
+                    'roles'      => ['adminSystemCRUD', ],
                 ],
             ],
-            /*
-            'denyCallback' => function ($rule, $action) {
-                \yii::$app->getSession()->addFlash("warning",\Yii::t('app', "Действие запрещено"));
-                return $this->redirect(\Yii::$app->request->referrer);
-
-            }
-            */
         ];
         return $behaviors;
     }

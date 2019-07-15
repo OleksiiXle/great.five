@@ -20,9 +20,9 @@ class TestController extends MainController
                 [
                     'allow'      => true,
                     'actions'    => [
-                         'index', 'create', 'update', 'delete', 'update-configs'
+                         'index', 'create', 'update', 'delete', 'update-configs', 'php-info'
                     ],
-                    'roles'      => ['adminCRUD' ],
+                    'roles'      => ['adminBoss' ],
                 ],
             ],
                 /*
@@ -48,9 +48,11 @@ class TestController extends MainController
     public function actionIndex() {
        // $this->layout =  '@app/views/layouts/testLeftMenu.php';
      //   $this->layout =  '@app/views/layouts/commonLayoutTest.php';
+        $rr=1;
+        $m = \Yii::$app->authManager;
+        $ret = $m->getChildRoles('adminBoss');
 
-        return $this->render('test',[
-        ]);
+        return $this->render('test',[]);
     }
 
 

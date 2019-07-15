@@ -1,79 +1,71 @@
 <?php
 $t = [
     [
-        'name' => 'Администрирование',
+        'name' => 'Системные настройки',
         'route' => '',
-        'role' => 'menuAdmin',
+        'role' => 'menuAdminSystem',
         'children' => [
             [
-                'name' => 'Разрешения, роли, пользователи',
-                'route' => '',
-                'role' => 'menuAdmin',
-                'children' => [
-                    [
-                        'name'       => 'Правила',
-                        'route'      => '/adminx/rule',
-                        'role' => 'menuAdmin',
-                        'children' => []
-                    ],
-                    [
-                        'name'       => 'Разрешения',
-                        'route'      => '/adminx/auth-item',
-                        'role' => 'menuAdmin',
-                        'children' => []
-                    ],
-                    [
-                        'name'       => 'Пользователи',
-                        'route'      => '/adminx/user',
-                        'role' => 'menuAdmin',
-                        'children' => []
-                    ],
-                    [
-                        'name'       => 'Активность пользователей',
-                        'route'      => '/adminx/check/user-control',
-                        'role' => 'menuAdmin',
-                        'children' => []
-                    ],
-                    [
-                        'name'       => 'Активность гостей',
-                        'route'      => '/adminx/check/guest-control',
-                        'role' => 'menuAdmin',
-                        'children' => []
-                    ],
-                ]
+                'name'       => 'Разрешения',
+                'route'      => '/adminx/auth-item',
+                'role' => 'menuAdminSystem',
+                'children' => []
             ],
             [
-                'name' => 'Настройки',
-                'route' => '',
-                'role' => 'menuAdmin',
-                'children' => [
-                    [
-                        'name'       => 'Редактор меню',
-                        'route'      => '/adminx/menux/menu',
-                        'role' => 'menuAdmin',
-                        'children' => []
-                    ],
-                    [
-                        'name'       => 'Системные настройки',
-                        'route'      => '/adminx/configs/update',
-                        'role' => 'menuAdmin',
-                        'children' => []
-                    ],
-                    [
-                        'name'       => 'PHP-info',
-                        'route'      => 'adminx/user/php-info',
-                        'role' => 'menuAdmin',
-                        'children' => [],
-                    ],
-                    [
-                        'name'       => 'Переводы',
-                        'route'      => 'adminx/translation',
-                        'role' => 'menuAdmin',
-                        'children' => [],
-                    ],
-                ],
-            ]
-
+                'name'       => 'Правила',
+                'route'      => '/adminx/rule',
+                'role' => 'menuAdminSystem',
+                'children' => []
+            ],
+            [
+                'name'       => 'Редактор меню',
+                'route'      => '/adminx/menux/menu',
+                'role' => 'menuAdminSystem',
+                'children' => []
+            ],
+            [
+                'name'       => 'Настройки системы',
+                'route'      => '/adminx/configs/update',
+                'role' => 'menuAdminSystem',
+                'children' => []
+            ],
+            [
+                'name'       => 'PHP-info',
+                'route'      => 'adminx/user/php-info',
+                'role' => 'menuAdminSystem',
+                'children' => [],
+            ],
+            [
+                'name'       => 'Переводы',
+                'route'      => 'adminx/translation',
+                'role' => 'menuAdminSystem',
+                'children' => [],
+            ],
+        ]
+    ],
+    [
+        'name' => 'Администрирование пользователей',
+        'route' => '',
+        'role' => 'menuAdminUser',
+        'children' => [
+            [
+                'name'       => 'Пользователи',
+                'route'      => '/adminx/user',
+                'role' => 'menuAdminUser',
+                'children' => []
+            ],
+            [
+                'name'       => 'Активность пользователей',
+                'route'      => '/adminx/check/user-control',
+                'role' => 'menuAdminUser',
+                'children' => []
+            ],
+            [
+                'name'       => 'Активность гостей',
+                'route'      => '/adminx/check/guest-control',
+                'role' => 'menuAdminUser',
+                'children' => []
+            ],
         ]
     ],
     [

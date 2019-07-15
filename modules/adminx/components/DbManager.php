@@ -20,6 +20,10 @@ class DbManager extends \yii\rbac\DbManager
     public $permCacheKey = 'perm';
     public $permCacheKeyDuration = 180;
 
+    public $childrenRoles = [];
+    public $childrenPermissions = [];
+
+
     public function init()
     {
         $this->permCacheKey = \Yii::$app->configs->permCacheKey;
@@ -31,7 +35,7 @@ class DbManager extends \yii\rbac\DbManager
      * Инициализация $_userPermissions и $_userRoles из кеша
      * @return bool
      */
-    public function getUserPermissionsFronCache($userId)
+    public function getUserPermissionsFromCache($userId)
     {
         $data = $this->cache->get($this->permCacheKey);
         if (is_array($data) && isset($data[$userId])) {
@@ -44,6 +48,7 @@ class DbManager extends \yii\rbac\DbManager
         $this->_userRoles  = [];
 
         $permItems=$this->getPermissionsByUser($userId);
+        //$pe=$this->checkAccessRecursive();
         foreach ($permItems as $item){
             $this->_userPermissions[$item->name] = (!empty($item->ruleName)) ? $item->ruleName : '';
         }
@@ -73,12 +78,12 @@ class DbManager extends \yii\rbac\DbManager
     public function checkAccess($userId, $permissionName, $params = [])
     {
         $t=1;
-        $this->getUserPermissionsFronCache($userId);
+        $this->getUserPermissionsFromCache($userId);
         if (empty($this->_userPermissions)) {
             return false;
         }
 
-        $userPermissions = $this->_userPermissions;
+        $userPermissions = array_merge($this->_userPermissions, $this->_userRoles) ;
         if (isset($userPermissions[$permissionName])){
             if (!empty($userPermissions[$permissionName])){
                 //-- если у роли или разрешения есть правило - проверяем его
@@ -212,6 +217,27 @@ class DbManager extends \yii\rbac\DbManager
                 ->delete($this->assignmentTable, ['user_id' => (string) $userId])
                 ->execute() > 0;
     }
+
+    public function getRolePermissionsRecursive($roleName)
+    {
+
+    }
+
+
+    public function getChildrenRoles($roleName)
+    {
+        $query = new Query();
+        $parents = $query->select(['parent'])
+            ->from($this->itemChildTable)
+            ->where(['child' => $roleName])
+            ->column($this->db);
+        foreach ($parents as $parent) {
+            $this->childrenRoles[] = $parent;
+            $this->getChildrenRoles($parent);
+        }
+
+    }
+
 
 
 

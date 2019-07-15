@@ -9,65 +9,8 @@ use app\modules\structure\models\OrderProjectDepartment;
 use app\models\DepartmentCommon;
 use app\models\Department;
 
-
-
-class AccessHelper {
-    /*
-     Array
-(
-    [rootRights] =>  права на все подразделения
-    [rootDepartments] => Array - выбранные администратором подразделения, к которым (включая их детей) у юсера есть доступ
-        (
-            [30018] => Array
-                (
-                    [can_department] => 1
-                    [can_position] => 1
-                    [can_personal] => 1
-                )
-
-            [26361] => Array
-                (
-                    [can_department] => 1
-                    [can_position] => 1
-                    [can_personal] => 1
-                )
-
-            [29161] => Array
-                (
-                    [can_department] => 1
-                    [can_position] => 1
-                    [can_personal] => 1
-                )
-
-        )
-
-    [departmentsAvailable] => Array - полный массив ид разрешенных подразделений
-        (
-            [0] => 30018
-            [1] => 30019
-            [2] => 30020
-            [3] => 30021
-            [4] => 30022
-        )
-
-    [parentsDepartments] => ид всех родителей корневых подразделений - будет использоваться для рисования дефолтного дерева
-    они будут недоступны для изменения, но выводить их надо
-    Array
-(
-    [30018] => 30018
-    [14005] => 14005
-    [26361] => 26361
-    [25385] => 25385
-    [29161] => 29161
-    [29145] => 29145
-    [28688] => 28688
-)
-
-
-
-)
-
-     */
+class AccessHelper
+{
 
     /*
      ВСЯ аутентифакационная информация хранится в сессии:

@@ -23,6 +23,11 @@ use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
 
+/**
+ * Class UserController
+ * Управление пользователями
+ * @package app\modules\adminx\controllers
+ */
 class UserController extends MainController
 {
 
@@ -47,15 +52,23 @@ class UserController extends MainController
                     'actions'    => [
                         'index', 'php-info', 'test' , 'conservation'
                     ],
-                    'roles'      => ['adminView','adminCRUD' ],
+                    'roles'      => ['adminStaff'],
                 ],
                 [
                     'allow'      => true,
                     'actions'    => [
                          'signup-by-admin', 'update', 'delete'
                     ],
-                    'roles'      => ['adminCRUD' ],
+                    'roles'      => ['adminStaff' ],
                 ],
+                [
+                    'allow'      => true,
+                    'actions'    => [
+                        'php-info'
+                    ],
+                    'roles'      => ['adminBoss'],
+                ],
+
             ],
             /*
             'denyCallback' => function ($rule, $action) {
