@@ -42,6 +42,9 @@ return [
 
         //----------------------------------------------------------------------------- СООБЩЕНИЯ
         'messageCRUD' => 'Редактирование Сообщений',
+        'testPermission1' => '',
+        'testPermission2' => '',
+        'testPermission3' => '',
 
     ],
     'roles' => [
@@ -51,8 +54,20 @@ return [
         'adminTeam'  => 'Администратор Команд',
         'userTeamMember'   => 'Пользователь - член команды',
         'userSimple'   => 'Пользователь простой',
+        'testRole1'   => '',
+        'testRole2'   => '',
+        'testRole3'   => '',
     ],
     'rolesPermissions' => [
+        'testRole1' => [
+            'testPermission1',
+        ],
+        'testRole2' => [
+            'testPermission2',
+        ],
+        'testRole3' => [
+            'testPermission3',
+        ],
         'userSimple' => [
             'commentCRUD',
         ],
@@ -82,8 +97,15 @@ return [
             'adminSystemCRUD',
             'adminSystemView',
         ],
+
     ],
     'rolesChildren' => [
+        'testRole2' => [
+            'testRole3',
+        ],
+        'testRole1' => [
+            'testRole2',
+        ],
         'userTeamMember' => [
             'userSimple',
         ],

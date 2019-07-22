@@ -47,10 +47,13 @@ class TestController extends MainController
 
     public function actionIndex() {
        // $this->layout =  '@app/views/layouts/testLeftMenu.php';
-     //   $this->layout =  '@app/views/layouts/commonLayoutTest.php';
-        $rr=1;
         $m = \Yii::$app->authManager;
-        $ret = $m->getChildRoles('adminBoss');
+        $user_id = \Yii::$app->user->getId();
+        $r = $m->userRoles;
+        $rr = $m->userRolesPermissions;
+        $q = $m->getUserRolesPermissionsFromCahe(3);
+        $tt = \Yii::$app->user->can('adminBoss');
+     //   $m->getChildrenRolesRecursive('adminBoss', $rr);
 
         return $this->render('test',[]);
     }

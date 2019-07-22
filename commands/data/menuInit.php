@@ -41,6 +41,12 @@ $t = [
                 'role' => 'menuAdminSystem',
                 'children' => [],
             ],
+            [
+                'name'       => 'Тест',
+                'route'      => '	/adminx/test/index',
+                'role' => 'menuAdminSystem',
+                'children' => [],
+            ],
         ]
     ],
     [

@@ -74,32 +74,11 @@ class RbacController extends Controller
                 echo ' уже есть' . PHP_EOL;
             }
         }
-        //-- добавляем ролям детей, которых не было
-        echo 'ДЕТИ РОЛЕЙ *******************************' .PHP_EOL;
-        foreach ($rolesChildren as $role => $children){
-            echo '* діти ролі * ' . $role . PHP_EOL;
-            $parentRole = $auth->getRole($role);
-            foreach ($children as $child){
-                echo ' добавляю' . ' ' . $child ;
-                try{
-                    $childRole = $auth->getRole($child);
-                    if ($auth->addChild($parentRole, $childRole)){
-                        echo ' OK ' . PHP_EOL;
-                    } else {
-                        echo ' ERROR ' . PHP_EOL;
-                        return false;
-                    }
 
-                } catch (\yii\base\Exception $e){
-                    echo ' мабуть вже є така дитинка' . ' ' . $child . PHP_EOL;
-                }
-            }
-
-        }
         //-- добавляем ролям разрешения, которых не было
         echo 'РАЗРЕШЕНИЯ РОЛЕЙ *******************************' .PHP_EOL;
         foreach ($rolesPermissions as $role => $permission){
-            echo '* дозвіли ролі * ' . $role . PHP_EOL;
+            echo '* role * ' . $role . PHP_EOL;
             $parentRole = $auth->getRole($role);
             foreach ($permission as $perm){
                 echo ' добавляю' . ' ' . $perm ;
@@ -119,6 +98,30 @@ class RbacController extends Controller
                     }
                 } catch (\yii\base\Exception $e){
                     echo ' мабуть вже є така дозвіл' . ' ' . $perm . PHP_EOL;
+                }
+            }
+
+        }
+
+
+        //-- добавляем ролям детей, которых не было
+        echo 'ДЕТИ РОЛЕЙ *******************************' .PHP_EOL;
+        foreach ($rolesChildren as $role => $children){
+            echo '* role * ' . $role . PHP_EOL;
+            $parentRole = $auth->getRole($role);
+            foreach ($children as $child){
+                echo ' добавляю' . ' ' . $child ;
+                try{
+                    $childRole = $auth->getRole($child);
+                    if ($auth->addChild($parentRole, $childRole)){
+                        echo ' OK ' . PHP_EOL;
+                    } else {
+                        echo ' ERROR ' . PHP_EOL;
+                        return false;
+                    }
+
+                } catch (\yii\base\Exception $e){
+                    echo ' мабуть вже є така дитинка' . ' ' . $child . PHP_EOL;
                 }
             }
 
@@ -310,6 +313,63 @@ class RbacController extends Controller
         $a = \Yii::$app->db->createCommand('ALTER TABLE menu_x AUTO_INCREMENT=1')->execute();
 
     }
+
+    public function actionRoleTest()
+    {
+        $auth = Yii::$app->authManager;
+        $auth->removeAll();
+        echo 'Удалены все роли и разрешения' .PHP_EOL;
+
+
+        $params = require(__DIR__ . '/data/rbacInit.php');
+        $roles            = $params['roles'];
+        $rolesChildren    = $params['rolesChildren'];
+        $auth = \Yii::$app->authManager;
+
+        //-- добавляем роли, которых не было
+        echo 'РОЛИ *******************************' .PHP_EOL;
+        foreach ($roles as $roleName => $roleNote){
+            echo '* роль * ' . $roleName ;
+            $checkRole = $auth->getRole($roleName);
+            if (!isset($checkRole)){
+                echo ' добавляю' ;
+                $newRole = $auth->createRole($roleName);
+                $newRole->description = $roleNote;
+                if ($auth->add($newRole)){
+                    echo ' OK ' . PHP_EOL;
+                } else {
+                    echo ' ERROR ' . PHP_EOL;
+                    return false;
+                }
+            } else {
+                echo ' уже есть' . PHP_EOL;
+            }
+        }
+        //-- добавляем ролям детей, которых не было
+        echo 'ДЕТИ РОЛЕЙ *******************************' .PHP_EOL;
+        foreach ($rolesChildren as $role => $children){
+            echo '* role * ' . $role . PHP_EOL;
+            $parentRole = $auth->getRole($role);
+            foreach ($children as $child){
+                echo ' добавляю' . ' ' . $child ;
+                try{
+                    $childRole = $auth->getRole($child);
+                    if ($auth->addChild($parentRole, $childRole)){
+                        echo ' OK ' . PHP_EOL;
+                    } else {
+                        echo ' ERROR ' . PHP_EOL;
+                        return false;
+                    }
+
+                } catch (\yii\base\Exception $e){
+                    echo ' мабуть вже є така дитинка' . ' ' . $child . PHP_EOL;
+                }
+              //  exit(0);
+            }
+
+        }
+    }
+
 
 
 
