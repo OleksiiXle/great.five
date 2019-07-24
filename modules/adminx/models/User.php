@@ -38,6 +38,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_WAIT]],
+            [['refresh_permissions'] , 'boolean'],
         ];
     }
 
@@ -218,5 +219,15 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     //*************************************************************************************************************
+    public function needRefreshPermissions()
+    {
+        return $this->refresh_permissions;
+    }
+
+    public function dropRefreshPermissions()
+    {
+        $this->refresh_permissions = false;
+        return $this->save();
+    }
 
 }

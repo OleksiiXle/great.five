@@ -51,7 +51,7 @@ class TestController extends MainController
         $user_id = \Yii::$app->user->getId();
         $r = $m->userRoles;
         $rr = $m->userRolesPermissions;
-        $q = $m->getUserRolesPermissionsFromCahe(3);
+       // $q = $m->getUserRolesPermissionsFrom(3);
         $tt = \Yii::$app->user->can('adminBoss');
      //   $m->getChildrenRolesRecursive('adminBoss', $rr);
 
