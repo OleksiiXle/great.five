@@ -22,6 +22,7 @@ use yii\base\InvalidParamException;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\web\BadRequestHttpException;
+//use phpQuery;
 
 /**
  * Class UserController
@@ -44,7 +45,7 @@ class UserController extends MainController
                 ],
                 [
                     'allow' => true,
-                    'actions' => ['logout', 'test', 'change-password', 'update-profile'],
+                    'actions' => ['logout', 'test', 'change-password', 'update-profile', 'test-ajax'],
                     'roles' => ['@'],
                 ],
                 [
@@ -135,6 +136,7 @@ class UserController extends MainController
             ]],
 
         ]);
+        $r=1;
         return $this->render('index',[
             'dataProvider' => $dataProvider,
         ]);
@@ -382,7 +384,72 @@ class UserController extends MainController
     public function actionTest()
     {
         $t = 1;
+        $this->layout = false;
         return $this->render('test');
+    }
+
+    public function actionTestAjax()
+    {
+        function getUrl($url,&$file, &$DomainName)
+        {
+            $url = htmlentities(strip_tags($url));
+            $ExplodeUrlInArray = explode('/',$url);
+            $DomainName = $ExplodeUrlInArray[2];
+            $file = @file_get_contents($url);
+        }
+
+        function getHref($file, $DomainName ){
+            $dom = phpQuery::newDocument($file);
+            $url='popsu.net';
+            $vnut=[];
+            $vnech=[];
+            $document = phpQuery::newDocument($file);
+
+
+
+
+
+         //   preg_match_all('~<a [^<>]*href=[\'"]([^\'"]+)[\'"][^<>]*>(((?!~si',$file, $matches);
+           // preg_match_all('~<a [^<>]*href=[\'"]([^\'"]+)[\'"][^<>]*>(((?!~si',$file, $matches);
+           // preg_match_all('/(href=["|\'])(.*?)(["|\'])/i',$file,$patterns);
+         //   preg_match_all('href\\s*=\\s*(?:[\"\'](?<1>[^\"\']*)[\"\']|(?<1>\\S+))', $file, $matches);
+            preg_match('', $file, $matches);
+
+            foreach ($matches[1] as $val) {
+                if (!preg_match("~^[^=]+://~", $val) || preg_match("~^[^://]+://(www\.)?".$url."~i", $val)) {
+                    $vnut[]=$val;
+                }   else {
+                    $vnech[]=$val;
+                }
+            }
+            $ret = [
+                'vnut' => array_unique ($vnut),
+                'vnech' => array_unique ($vnech),
+            ];
+            return $ret;
+        }
+        $r=1;
+        $result = [
+            'status' => false,
+            'data' => 'errors',
+        ];
+        try{
+            $r = '@app/phpQuery.php';
+            //$pathToFile = \Yii::getAlias('@app/web/phpQuery-onefile.php');
+            require('/phpQuery-onefile.php');
+
+            $_post = $_POST;
+            $file = '';
+            $DomainName = '';
+            getUrl($_post['url'],$file, $DomainName);
+            if (isset($_post['checkLinks']) && $_post['checkLinks'] === 'true'){
+                $links = getHref($file, $DomainName );
+            }
+        } catch (\Exception $e){
+            $result['data'] = $e->getMessage();
+        }
+        return json_encode($result);
+
     }
 
     public function actionConservation()

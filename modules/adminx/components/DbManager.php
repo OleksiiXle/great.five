@@ -410,8 +410,8 @@ class DbManager extends BaseManager
             default:
                 break;
         }
-        $this->_userRoles  = [];
-        $this->_userRolesPermissions  = [];
+        $this->_userRoles  = null;
+        $this->_userRolesPermissions  = null;
         return $ret;
     }
 
